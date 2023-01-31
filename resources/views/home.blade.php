@@ -16,7 +16,7 @@
 
                     {{ __('You are logged in!') }}
                     <div><a href="{{ route('categories.index') }}">move create category</a></div>
-                    <div><a href="{{ route('songs.index') }}">move create Song</a></div>
+                    <div><a href="{{ route('songs.create') }}">move create Song</a></div>
                 </div>
             </div>
         </div>
