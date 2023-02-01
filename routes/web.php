@@ -17,9 +17,6 @@ use App\Http\Controllers\ViewSongsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
@@ -41,4 +38,5 @@ Route::controller(SongsController::class)->group(function () {
 });
 
 // User
-Route::get('/user', [ViewSongsController::class, 'index']);
+Route::get('/', [ViewSongsController::class, 'index']);
+Route::get('/get-song', [ViewSongsController::class, 'getSong'])->name('user.getSong');

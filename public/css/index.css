@@ -1,0 +1,415 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    -moz-user-select: none !important;
+    -webkit-touch-callout: none!important;
+    -webkit-user-select: none!important;
+    -khtml-user-select: none!important;
+    -moz-user-select: none!important;
+    -ms-user-select: none!important;
+    user-select: none!important;
+    overflow: hidden;
+}
+
+.box-body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.head {
+    width: 100%;
+    height: 93%;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+    align-items: center;
+}
+
+.control {
+    padding: 5px 5%;
+    margin: 0 !important;
+    width: 100%;
+    height: 7%;
+    overflow: hidden;
+}
+
+.img_backgound {
+    background: url(./img/gif.gif) no-repeat center;
+    background-size: cover;
+    width: 100%;
+    height: 95%;
+    border: 1px solid #000;
+    border-radius: 10px;
+}
+
+#btn-menue {
+    width: 50px;
+    height: 50px;
+    font-size: 50px;
+    padding: 5px;
+    border-radius: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+    z-index: 4;
+    position: absolute;
+}
+
+#btn-menue:hover {
+    box-shadow: 0px 1px 5px 0px #888888;
+    transition: .2s;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+#btn-menue:active {
+    transform: translateY(0);
+}
+
+.menue {
+    top: 5%;
+    right: 1%;
+    width: 50px;
+    height: 50px;
+}
+
+.music-name {
+    bottom: 0;
+    padding: 3px 10px;
+    right: 10%;
+    width: 200px;
+    max-width: 200px;
+    max-height: 30px;
+    border-left: 1px rebeccapurple solid;
+    overflow-y: auto;
+    font-weight: 500;
+}
+.music-name::-webkit-scrollbar {
+    width: 5px;
+    background-color: #f5f5f5;
+}
+
+.music-name::-webkit-scrollbar-thumb {
+    border-radius: 12px;
+    -webkit-box-shadow: inset 0 0 6px rgb(68 63 63 / 30%);
+    background-color: #d6cfcf;
+}
+
+.music-name::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgb(0 0 0 / 30%);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+}
+/* Btn */
+
+.group-btn {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-prev {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    border-radius: 15%;
+    display: inline-block;
+    align-items: center;
+    transition: .2s;
+}
+
+.btn-prev ion-icon {
+    margin-left: 5px;
+}
+
+.btn-prev:hover {
+    box-shadow: 1px 1px 5px 0px #888888;
+    transition: .2s;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.btn-prev:active {
+    transform: translateY(0);
+}
+
+.btn-next {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    border-radius: 15%;
+    display: inline-block;
+    align-items: center;
+    transition: .2s;
+}
+
+.btn-next ion-icon {
+    margin-left: 5px;
+}
+
+.btn-next:hover {
+    box-shadow: 0px 1px 5px 0px #888888;
+    transition: .2s;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.btn-next:active {
+    transform: translateY(0);
+}
+
+.input-range {
+    /* position: absolute; */
+    bottom: 1%;
+    left: 8%;
+    display: flex;
+    gap: 10px
+}
+
+.btn-play {
+    width: 60px;
+    height: 40px;
+    font-size: 30px;
+    border-radius: 15%;
+    display: inline-block;
+    align-items: center;
+    transition: .2s;
+    margin: 0 15px;
+}
+
+.btn-play ion-icon {
+    margin-left: 15px;
+}
+
+.btn-play:hover {
+    box-shadow: 1px 1px 5px 0px #888888;
+    transition: .2s;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.btn-play:active {
+    transform: translateY(0);
+}
+
+
+/*  */
+
+input[type=range] {
+    -webkit-appearance: none;
+    /* Hides the slider so that custom slider can be made */
+    width: 100%;
+    background: transparent;
+    /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(170, 170, 170);
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: 1px solid #000000;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px white;
+    margin-top: -4px;
+    background-color: beige;
+}
+
+
+/* Menu */
+
+.menu-list {
+    width: 300px;
+    height: 500px;
+    background-color: #e6fafb;
+    border-radius: 10px;
+    opacity: 0.8;
+    position: absolute;
+    right: 1%;
+    top: 90px;
+    box-shadow: 1px 1px 5px 0px #888888;
+    padding: 20px 0;
+    overflow-y: scroll;
+    transform: translateX(calc(100% + 30px));
+    transition: 0.5s;
+    z-index: 2;
+}
+
+.menue-active {
+    transition: 0.5s;
+    transform: translateX(0);
+}
+
+.menu-list::-webkit-scrollbar {
+    width: 0px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    opacity: 0;
+    background-color: #888888;
+    display: none;
+}
+
+.overlay-active {
+    display: block;
+}
+
+
+/* Menu Item */
+
+.menu-list ul {
+    padding: 0;
+}
+
+.menu-list .song-item {
+    display: flex;
+    padding: 8px 25px;
+    align-items: center;
+    transition: 0.2s;
+}
+
+.song-item:hover {
+    background-color: #ffffff;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.song-active {
+    background-color: #ffffff;
+    overflow: 1;
+}
+
+.song-item img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.song-item label {
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.song-item .decription {
+    font-size: 20px;
+    width: 25px;
+    height: 25px;
+    text-align: center;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.decription:hover {
+    box-shadow: 1px 1px 5px 0px #888888;
+}
+
+
+/* Dark Mode */
+
+.btn-darkmode {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    padding: 5px;
+    border-radius: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .2s;
+}
+
+.btn-darkmode:hover {
+    box-shadow: 0px 1px 5px 0px #888888;
+    transition: .2s;
+    cursor: pointer;
+    transform: translateY(-2px);
+}
+
+.btn-darkmode:active {
+    transform: translateY(0);
+}
+
+.darkmode-active {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.menu-dark {
+    background-color: #ffffff;
+    color: #000;
+    z-index: 0.5;
+}
+
+.menue-active .song-item:hover {
+    background-color: #d8d8d894;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+@media (max-width: 414px) {
+    .head {
+        height: 80%;
+    }
+    .control {
+        position: relative;
+        justify-content: center;
+        height: 20%;
+        margin: 25px 0;
+    }
+    .music-name {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        border: none;
+        text-align: center;
+        transform: translateX(-50%);
+    }
+    .music-name label {
+        font-weight: 700;
+    }
+    .input-range {
+        position: absolute;
+        top: 30%;
+        left: 60%;
+        height: 20px;
+        transform: translateX(-50%);
+    }
+    .input-range input {
+        width: 250px;
+    }
+    .group-btn {
+        position: absolute;
+        bottom: 15%;
+    }
+    .menu-list{
+        height: 300px;
+    }
+}
