@@ -40,3 +40,4 @@ Route::controller(SongsController::class)->group(function () {
 // User
 Route::get('/', [ViewSongsController::class, 'index']);
 Route::get('/get-song', [ViewSongsController::class, 'getSong'])->name('user.getSong');
+Route::get('/get-list', [ViewSongsController::class, 'getList'])->name('user.getList');

@@ -50,8 +50,8 @@
                     </div>
                     <div class="overlay"></div>
                     <div class="menu-list">
-                        <ul>
-                            
+                        <ul id="show_list_songs">
+                           
                         </ul>
                     </div>
                 </div>
@@ -68,7 +68,7 @@
                     <div class=" btn-prev bt">
                         <ion-icon name="arrow-dropleft"></ion-icon>
                     </div>
-                    <div class=" btn-play bt">
+                    <div class=" btn-play bt" id="btn_play">
                         <ion-icon id="player" name="play-circle"></ion-icon>
                     </div>
                     <div class=" btn-next bt">
@@ -80,12 +80,28 @@
     
             <div class="overlay"></div>
         </div>
-    <link rel="stylesheet" href="{{ asset('js/index.js') }}">
     <script>
-        var audio = $('#audio');
+        const audio = $('#audio');
         var image = $('.img_backgound');
+        var currentSong = 0;
+        var listSongs = [];
+        var getUrl = window.location;
         var btnPlay =  $('#player');
+        let isPlay = false;
 
+        // get list of songs
+        function getSongList(){
+            $.ajax({
+                url: '{{ route('user.getList') }}',
+            })
+            .done(function(data){
+                listSongs = data
+                loadSong()
+
+            })
+        }
+        getSongList()
+        // ------------------------------------------
         $(document).ready(function() {
             $("#btn-menue").click(function() {
                 $(".menu-list").toggleClass("menue-active");
@@ -102,70 +118,70 @@
                 $(".bt").toggleClass("btn-dark");
                 $()
             })
-
-            // play song
-           $('.btn-play').click(function(){
+            // btn play
+            $(document).on('click', '#btn_play', function(){
+                isPlay = true;
                 checkPlay();
+                
+            })
+            // stop song
+            $(document).on('click', '.pause_btn',function(){
+                isPlay = false;
+                checkPlay();
+                
             })
             // next song
-            $('.btn-next').click(function(){
-                ++page;
-                playSong()
-                btnPlay.attr('name', 'pause')
+            $(document).on('click','.btn-next',function(){
+                currentSong++;
+                isPlay = true;
+
+                checkNextPrev()
+                loadSong();
+                checkPlay();
+                console.log(currentSong);
 
             })
             // previous song
-            $('.btn-prev').click(function(){
-                --page;
-                playSong()
-                btnPlay.attr('name', 'pause')
+            $(document).on('click','.btn-prev',function(){
+                currentSong--;
+                isPlay = true;
+
+                checkNextPrev()
+                loadSong();
+                checkPlay();
+                console.log(currentSong);
             })
-        });
-        // check play song
+        })
+
+        // load song
+        function loadSong(){
+            let song = listSongs[currentSong];
+            audio.attr('src', `${getUrl.protocol}//${getUrl.host}/storage/songs/${song.song_name}`);
+            image.css('backgroundImage', 'url(' + `${getUrl.protocol}//${getUrl.host}/storage/images/${song.image}` +')' );
+            $('.music-name').text(song.name + ' - ' + song.author);
+        }
+        
+        // check play 
         function checkPlay() {
-            if ($('#audio')[0].paused) {
-                btnPlay.attr('name', 'pause')
+            if (isPlay == true) {
                 $('#audio')[0].play();
+                btnPlay.attr('name', 'pause')
+                $('.btn-play').toggleClass("pause_btn");
+
             }else{
-                btnPlay.attr('name', 'play-circle')
                 $('#audio')[0].pause();
+                btnPlay.attr('name', 'play-circle');
+                $(this).removeClass("pause_btn");
             }
         }
-
-        // get the song data
-        var page = 1;
-        var getUrl = window.location;
-        var total = 0;
-        // get the song
-        function playSong() {
-            $.ajax({
-                url: '{{ route('user.getSong') }}' + '?page=' + page,
-            })
-            .done(function(reponse) {
-                const data = reponse.data[0];
-                if (data) {
-                    audio.attr('src', `${getUrl.protocol}//${getUrl.host}/storage/songs/${data.song_name}`);
-                    image.css('backgroundImage', 'url(' + `${getUrl.protocol}//${getUrl.host}/storage/images/${data.image}` +')' );
-                    $('.music-name').text(data.name + ' - ' + data.author);
-                }
-                //validate next or previous
-                switch (page) {
-                    case 0:
-                        page = reponse.total
-                        playSong();
-                        break;
-                    case reponse.total + 1:
-                        page = 1;
-                        console.log(page);
-                        playSong();
-                        break;
-                    default:
-                        break;
-                }
-            })
+        // check next or previous
+        function checkNextPrev() {
+            if (currentSong < 0) {
+                currentSong = listSongs.length -1;
+            } else if (currentSong > listSongs.length -1) {
+                currentSong = 0;
+            }
         }
-        playSong();
-
     </script>
     </body>
 </html>
