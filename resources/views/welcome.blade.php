@@ -97,6 +97,7 @@
             .done(function(data){
                 listSongs = data
                 loadSong()
+                displaySongList();
 
             })
         }
@@ -134,11 +135,10 @@
             $(document).on('click','.btn-next',function(){
                 currentSong++;
                 isPlay = true;
-
+                audio[0].currentTime = 10;
                 checkNextPrev()
                 loadSong();
                 checkPlay();
-                console.log(currentSong);
 
             })
             // previous song
@@ -149,8 +149,33 @@
                 checkNextPrev()
                 loadSong();
                 checkPlay();
-                console.log(currentSong);
             })
+            $(document).on('click','.song-item',function(){
+                currentSong = $(this).data('index');
+                loadSong();
+                checkPlay();
+            })
+
+
+            // thanh Range
+            audio[0].ontimeupdate = function() {
+                if (audio[0].duration) {
+                    // làm tròn theo %
+                    const progressPercent = Math.floor(audio[0].currentTime / audio[0].duration * 100)
+                    console.log(progressPercent);
+                    $('#range').val(progressPercent)
+
+                    $('#time').text(Math.floor(audio[0].duration / 60) + ":00")
+                }
+            }
+            $(document).on('change','#range',function(e){
+                audio.pause();
+                const seekTime = audio[0].duration / 100 * e.target.value
+                audio.currentTime = seekTime
+                audio.play();
+                console.log(seekTime, audio[0].currentTime, audio[0].duration);
+            })
+
         })
 
         // load song
@@ -181,6 +206,20 @@
             } else if (currentSong > listSongs.length -1) {
                 currentSong = 0;
             }
+        }
+        // display list of songs
+        function displaySongList() {
+            $("#show_list_songs").html('');
+            const html = listSongs.map((song, index) => {
+                return `
+                    <li class="song-item justify-content-between ${index === currentSong ? 'song-active' : ""}" data-index="${index}"> 
+                        <img src="${getUrl.protocol}//${getUrl.host}/storage/images/${song.image}" alt="" id="img" class="col col-1">
+                        <label for="img"  class="col col-lg-8">${song.name + ' - ' + song.author}</label>
+                        <div class="decription col-2"><ion-icon name="more"></ion-icon></div>
+                    </li>
+                `;
+            })
+            $("#show_list_songs").append(html);
         }
     </script>
     </body>
